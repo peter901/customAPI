@@ -1,6 +1,6 @@
 <?php
 
-class TastController{
+class TaskController{
 
     public function processRequest($method,$id){
         
@@ -10,9 +10,29 @@ class TastController{
                 echo "index";
             }elseif($method == 'POST'){
                 echo "create";
+            }else{
+
+            }
+
+        }else{
+
+            switch ($method){
+                case "GET":
+                    echo "get {$id}";
+                    break;
+                case "PATCH":
+                    echo "edit {$id}";
+                    break;
+
+                case "DELETE":
+                    echo "delete {$id}";
+                    break;
+
+                default:
+                    echo "invalid request"; 
+                    break;
             }
             
-        }else{
 
         }
     }

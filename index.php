@@ -1,4 +1,6 @@
 <?php 
+require_once(__DIR__.'/vendor/autoload.php');
+
 $path =  parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ;
 
 $parts = explode('/',$path);
@@ -8,6 +10,9 @@ $id = $parts[3] ?? null;
 
 if($resource != 'tasks'){
     http_response_code(404);
-    return;
+    exit;
 }
-echo $_SERVER['REQUEST_METHOD'];
+
+$controller = new TaskController;
+
+$controller->processRequest($_SERVER['REQUEST_METHOD'],$id);

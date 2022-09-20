@@ -26,11 +26,19 @@ class TaskController{
                 $this->respondMethodNotAllowed("Allow: GET, POST");
             }
 
-        }else{
+        }
+        else
+        {
+            $task = $this->gateway->get($id);
+
+            if($task === false){
+                $this->respondMethodNotFound($id);
+                return;
+            }
 
             switch ($method){
                 case "GET":
-                    echo json_encode($this->gateway->get($id));
+                    echo json_encode($task);
                     break;
 
                 case "PATCH":
@@ -54,5 +62,11 @@ class TaskController{
     {
         http_response_code(405);
         header($allowedMethod);
+    }
+
+    private function respondMethodNotFound(string $id): void
+    {
+        http_response_code(404);
+        echo json_encode(["message"=>"Task with ID {$id} not found"]);
     }
 }

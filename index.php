@@ -4,6 +4,7 @@ ini_set('display_errors', 'On');
 
 require_once(__DIR__.'/vendor/autoload.php');
 
+set_error_handler("ErrorHandler::handleError");
 set_exception_handler("ErrorHandler::handleException");
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);

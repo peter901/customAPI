@@ -19,7 +19,11 @@ class TaskController{
             }
             elseif($method == 'POST')
             {
-                echo "create";
+                $data = (array) json_decode(file_get_contents("php://input"),true);
+                
+                $id = $this->gateway->create($data);
+
+                $this->respondCreated($id);
             }
             else
             {
@@ -68,5 +72,11 @@ class TaskController{
     {
         http_response_code(404);
         echo json_encode(["message"=>"Task with ID {$id} not found"]);
+    }
+
+    private function respondCreated(string $id):void
+    {
+        http_response_code(201);
+        echo json_encode(["message"=>"Task created", "id"=>$id]);
     }
 }

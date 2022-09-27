@@ -59,4 +59,9 @@ class TaskGateway{
 
         return $this->conn->lastInsertId();
     }
+
+    public function update(array $data)
+    {
+
+    }
 }
